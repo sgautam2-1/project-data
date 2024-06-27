@@ -1,4 +1,17 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  get "/articles", to: "articles#index"
+  get 'genres/index'
+  get 'genres/show'
+  get 'authors/index'
+  get 'authors/show'
+  root 'home#index'  # Sets the root path to HomeController#index
+
+  get 'about', to: 'pages#about'  # Route for the about page
+
+  resources :authors, only: [:index, :show]  # Generates routes for authors index and show actions
+  resources :genres, only: [:index, :show]   # Generates routes for genres index and show actions
+  resources :books, only: [:index, :show]    # Generates routes for books index and show actions
+
+  # Other routes as needed
 end
+
+

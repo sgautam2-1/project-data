@@ -60,6 +60,10 @@ gem "tailwindcss-rails", "~> 2.5"
 
 group :development do
   gem 'foreman'
-  # other gems may be listed here
+
 end
 
+
+gem "faker", "~> 3.4"
+
+gem 'kaminari'

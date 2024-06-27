@@ -1,0 +1,7 @@
+<h1>About</h1>
+<p>This application uses data from the following sources:</p>
+<ul>
+  <% @data_sources.each do |source| %>
+    <li><strong><%= source[:name] %>:</strong> <%= source[:description] %></li>
+  <% end %>
+</ul>

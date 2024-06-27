@@ -20,3 +20,15 @@ module.exports = {
     require('@tailwindcss/container-queries'),
   ]
 }
+
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        customGray: '#1a202c',
+      },
+    },
+  },
+  variants: {},
+  plugins: [],
+}

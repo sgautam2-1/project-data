@@ -1,19 +1,29 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>ProjectData</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+<head>
+  <title>Your Application Name</title>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= javascript_pack_tag 'application' %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <header class="bg-gray-800 text-white py-4">
+    <div class="container mx-auto flex justify-between items-center px-4">
+      <div class="text-xl font-bold">Navigation</div>
+      <nav>
+        <ul class="flex space-x-4">
+          <li><%= link_to 'Home', root_path, class: 'hover:text-gray-300' %></li>
+          <li><%= link_to 'Books', books_path, class: 'hover:text-gray-300' %></li>
+          <li><%= link_to 'Authors', authors_path, class: 'hover:text-gray-300' %></li>
+          <li><%= link_to 'Genres', genres_path, class: 'hover:text-gray-300' %></li>
+          <li><%= link_to 'About', about_path, class: 'hover:text-gray-300' %></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
-
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
-    </main>
-  </body>
+  <main class="container mx-auto mt-4 px-4">
+    <%= yield %>
+  </main>
+</body>
 </html>
