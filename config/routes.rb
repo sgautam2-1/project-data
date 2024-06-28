@@ -10,6 +10,11 @@ Rails.application.routes.draw do
   resources :authors, only: [:index, :show]  # Generates routes for authors index and show actions
   resources :genres, only: [:index, :show]   # Generates routes for genres index and show actions
   resources :books, only: [:index, :show]    # Generates routes for books index and show actions
+# config/routes.rb
+
+resources :authors
+
+
 
   # Other routes as needed
 end

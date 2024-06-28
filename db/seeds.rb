@@ -14,6 +14,15 @@ genres = Genre.create([
   { name: 'Dystopian', description: 'Books set in a future society characterized by oppressive social control and often a bleak outlook.' }
 ])
 
+def fetch_coordinates(nationality)
+    result = Geocoder.search(nationality).first
+    if result
+      [result.longitude, result.latitude]
+    else
+      [nil, nil]  # Fallback in case no coordinates are found
+    end
+  end
+  
 # Create authors and their books
 100.times do
   author = Author.create(

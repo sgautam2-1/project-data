@@ -67,3 +67,5 @@ end
 gem "faker", "~> 3.4"
 
 gem 'kaminari'
+gem 'httparty'
+gem 'geocoder'

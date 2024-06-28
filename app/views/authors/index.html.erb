@@ -1,10 +1,20 @@
-<!-- app/views/authors/index.html.erb -->
+
+
 <h1>Authors</h1>
+
+<div class="search-form">
+  <%= form_tag authors_path, method: :get, class: "mb-4" do %>
+    <%= text_field_tag :search, params[:search], placeholder: "Search by author name", class: "border border-gray-300 rounded px-4 py-2 mr-2", autocomplete: "off" %>
+    
+    <%= select_tag :genre_id, options_from_collection_for_select(Genre.all, :id, :name, params[:genre_id]), prompt: "Select genre", class: "border border-gray-300 rounded px-4 py-2" %>
+    
+    <%= submit_tag "Search", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+  <% end %>
+</div>
+
 <ul>
   <% @authors.each do |author| %>
-    <li>
-      <%= link_to author.name, author_path(author) %>
-    </li>
+    <li><%= link_to author.name, author_path(author) %></li>
   <% end %>
 </ul>
 
