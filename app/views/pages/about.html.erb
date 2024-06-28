@@ -1,4 +1,72 @@
 <div>
   <h1 class="font-bold text-4xl">Pages#about</h1>
-  <p>Find me in app/views/pages/about.html.erb</p>
+  <p>
+    <strong>Datasets Description and Integration Plan</strong>
+    <ol>
+      <li>
+        <strong>Authors Dataset:</strong>
+        <ul>
+          <li>Description: This dataset includes information about authors of books. Each author has a name, birth date, and nationality.</li>
+          <li>Structure:
+            <ul>
+              <li>Table: authors</li>
+              <li>Columns: id (primary key), name (string), birth_date (date), nationality (string)</li>
+            </ul>
+          </li>
+          <li>Integration: Authors are directly related to books they have authored. This relationship is established through the books table using a one-to-many association (one author can have many books).</li>
+        </ul>
+      </li>
+      <li>
+        <strong>Books Dataset:</strong>
+        <ul>
+          <li>Description: This dataset contains details about books authored by various authors. Each book has a title, description, published date, and belongs to a specific genre.</li>
+          <li>Structure:
+            <ul>
+              <li>Table: books</li>
+              <li>Columns: id (primary key), title (string), description (text), published_date (date), author_id (foreign key to authors table), genre_id (foreign key to genres table)</li>
+            </ul>
+          </li>
+          <li>Integration: Books are associated with authors (via author_id) and genres (via genre_id). This allows you to link each book to its respective author and genre.</li>
+        </ul>
+      </li>
+      <li>
+        <strong>Genres Dataset:</strong>
+        <ul>
+          <li>Description: This dataset categorizes books into various genres such as Science Fiction, Fantasy, Mystery, etc.</li>
+          <li>Structure:
+            <ul>
+              <li>Table: genres</li>
+              <li>Columns: id (primary key), name (string), description (text)</li>
+            </ul>
+          </li>
+          <li>Integration: Genres are assigned to books through the genre_id foreign key in the books table. This relationship allows you to categorize each book under its respective genre.</li>
+        </ul>
+      </li>
+    </ol>
+
+    <strong>Integration Strategy:</strong>
+    <ul>
+      <li><strong>Data Relationship:</strong>
+        <ul>
+          <li>Authors and books are linked through a one-to-many relationship, where each author can have multiple books.</li>
+          <li>Books and genres are linked through a many-to-one relationship, where each book belongs to exactly one genre.</li>
+        </ul>
+      </li>
+      <li><strong>Database Tables:</strong>
+        <ul>
+          <li>You have three primary tables: authors, books, and genres.</li>
+          <li>Foreign key constraints (author_id in books, genre_id in books) ensure data integrity and enforce relationships between these tables.</li>
+        </ul>
+      </li>
+      <li><strong>Data Flow:</strong>
+        <ul>
+          <li>Data flows from the authors dataset to books dataset via the author_id foreign key, indicating which author wrote each book.</li>
+          <li>Data flows from the genres dataset to books via the genre_id foreign key, categorizing each book into a specific genre.</li>
+        </ul>
+      </li>
+    </ul>
+   <div>
+      <img src="images/ERD.png" alt="This is ERD" />
+    </div>
+  </p>
 </div>

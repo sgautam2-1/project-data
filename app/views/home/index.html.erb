@@ -1,25 +1,38 @@
-<!-- app/views/home/index.html.erb -->
-<h1>Welcome to our website!</h1>
 
-<div id="map" style="height: 400px;"></div>
+<h1>Welcome to Our Book Collection</h1>
+
+<div id="authors-map" style="height: 400px;"></div>
+
+<link href='https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css' rel='stylesheet' />
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js'></script>
+
+<!-- Books Description -->
+<p>Explore our diverse collection of books authored by talented writers from around the world. From gripping novels to insightful non-fiction, there's something for every reader's taste and interest.</p>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    fetch('/authors.json')
-      .then(response => response.json())
-      .then(authors => {
-        // Initialize Map Box Static Map API
-        const mapBoxApiKey = '<%= Rails.application.credentials.dig(:map_box, :api_key) %>';
-        const mapElement = document.getElementById('map');
-        const markers = authors.map(author => ({
-          coordinates: `${author.longitude},${author.latitude}`,
-          title: author.name
-        }));
+    const mapBoxApiKey = '<%= Rails.application.credentials.dig(:map_box, :api_key) %>';
+    const mapElement = document.getElementById('authors-map');
 
-        const mapUrl = `https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/pin-s+000(${markers.join(',')})/${markers.join(',')},10/800x400?access_token=${mapBoxApiKey}`;
+    const markers = [
+      { coordinates: [0, 0], title: 'Example Marker' }
+    ];
 
-        mapElement.innerHTML = `<img src="${mapUrl}" alt="Map of Author Locations">`;
-      })
-      .catch(error => console.error('Error fetching authors:', error));
+    mapboxgl.accessToken = mapBoxApiKey;
+    const map = new mapboxgl.Map({
+      container: 'authors-map',
+      style: 'mapbox://styles/mapbox/streets-v11',
+      center: [0, 0], 
+      zoom: 1 
+    });
+
+    markers.forEach(marker => {
+      new mapboxgl.Marker()
+        .setLngLat(marker.coordinates)
+        .setPopup(new mapboxgl.Popup().setHTML(`<h3>${marker.title}</h3>`))
+        .addTo(map);
+    });
+
+    map.addControl(new mapboxgl.NavigationControl());
   });
 </script>

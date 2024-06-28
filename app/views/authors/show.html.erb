@@ -3,12 +3,23 @@
 <p><strong>Birth Date:</strong> <%= @author.birth_date %></p>
 <p><strong>Nationality:</strong> <%= @author.nationality %></p>
 
-<h2>Books by <%= @author.name %>:</h2>
+<h2>Genres</h2>
 <ul>
-  <% @author.books.each do |book| %>
-    <li>
-      <%= link_to book.title, book_path(book) %>
-    </li>
+  <% if @author.genres.any? %>
+    <% @author.genres.each do |genre| %>
+      <li><%= link_to genre.name, genre_path(genre) %></li>
+    <% end %>
+  <% else %>
+    <li>This author does not belong to any genre.</li>
   <% end %>
 </ul>
 
+<h2>Books by <%= @author.name %>:</h2>
+<ul>
+  <% @books.each do |book| %>
+    <li>
+      <%= link_to book.title, book_path(book) %> - 
+      <%= link_to book.genre.name, genre_path(book.genre) %>
+    </li>
+  <% end %>
+</ul>

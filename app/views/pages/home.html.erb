@@ -1,37 +1,41 @@
-<!-- app/views/pages/home.html.erb -->
 <h1>Welcome to Our Book Collection</h1>
 
-<div id="authors-map" style="height: 400px;"></div>
+<div id="authors-map" style="height: 400px; width: 100%;"></div>
 
-<!-- Include Mapbox GL JS library -->
 <link href='https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css' rel='stylesheet' />
 <script src='https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js'></script>
+
+<!-- Books Description -->
+<p>Explore our diverse collection of books authored by talented writers from around the world. From gripping novels to insightful non-fiction, there's something for every reader's taste and interest.</p>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     const mapBoxApiKey = '<%= Rails.application.credentials.dig(:map_box, :api_key) %>';
     const mapElement = document.getElementById('authors-map');
 
-    // Dummy data for illustration (replace with your actual data)
-    const markers = [
-      { coordinates: [0, 0], title: 'Example Marker' }
-    ];
+    if (mapBoxApiKey && mapElement) {
+      mapboxgl.accessToken = mapBoxApiKey;
+      const map = new mapboxgl.Map({
+        container: 'authors-map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [0, 0], 
+        zoom: 1 
+      });
 
-    mapboxgl.accessToken = mapBoxApiKey;
-    const map = new mapboxgl.Map({
-      container: 'authors-map',
-      style: 'mapbox://styles/mapbox/streets-v11',
-      center: [0, 0], // Default center
-      zoom: 1 // Adjust zoom level
-    });
+      const markers = [
+        { coordinates: [0, 0], title: 'Example Marker' }
+      ];
 
-    markers.forEach(marker => {
-      new mapboxgl.Marker()
-        .setLngLat(marker.coordinates)
-        .setPopup(new mapboxgl.Popup().setHTML(`<h3>${marker.title}</h3>`))
-        .addTo(map);
-    });
+      markers.forEach(marker => {
+        new mapboxgl.Marker()
+          .setLngLat(marker.coordinates)
+          .setPopup(new mapboxgl.Popup().setHTML(`<h3>${marker.title}</h3>`))
+          .addTo(map);
+      });
 
-    map.addControl(new mapboxgl.NavigationControl());
+      map.addControl(new mapboxgl.NavigationControl());
+    } else {
+      console.error('Mapbox API key or map element not found.');
+    }
   });
 </script>

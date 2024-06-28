@@ -1,6 +1,8 @@
 <h1><%= @book.title %></h1>
 
-<p><strong>Author:</strong> <%= @book.author.name %></p>
-<p><strong>Genre:</strong> <%= @book.genre.name %></p>
+<p><strong>Author:</strong> <%= link_to @book.author.name, author_path(@book.author) %></p>
+<p><strong>Genre:</strong> <%= link_to @book.genre.name, genre_path(@book.genre) %></p>
 <p><strong>Description:</strong> <%= @book.description %></p>
 <p><strong>Published Date:</strong> <%= @book.published_date %></p>
+
+<p><%= link_to "Back to Author", author_path(@book.author) %></p>

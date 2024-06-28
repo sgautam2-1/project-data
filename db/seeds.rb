@@ -1,7 +1,7 @@
 require 'faker'
 
 # Create genres
-genres = Genre.create([
+genre_data = [
   { name: 'Science Fiction', description: 'Books about futuristic technology and alien encounters.' },
   { name: 'Fantasy', description: 'Books involving magic and mythical creatures.' },
   { name: 'Mystery', description: 'Books focused on solving crimes or mysterious events.' },
@@ -12,17 +12,23 @@ genres = Genre.create([
   { name: 'Adventure', description: 'Books that involve thrilling journeys, expeditions, or quests, often set in exotic or dangerous locations.' },
   { name: 'Young Adult', description: 'Books aimed at a teenage audience, dealing with themes of identity, friendship, and coming-of-age.' },
   { name: 'Dystopian', description: 'Books set in a future society characterized by oppressive social control and often a bleak outlook.' }
-])
+]
+
+genres = genre_data.map do |data|
+  Genre.find_or_create_by(name: data[:name]) do |genre|
+    genre.description = data[:description]
+  end
+end
 
 def fetch_coordinates(nationality)
-    result = Geocoder.search(nationality).first
-    if result
-      [result.longitude, result.latitude]
-    else
-      [nil, nil]  # Fallback in case no coordinates are found
-    end
+  result = Geocoder.search(nationality).first
+  if result
+    [result.longitude, result.latitude]
+  else
+    [nil, nil]  
   end
-  
+end
+
 # Create authors and their books
 100.times do
   author = Author.create(
@@ -30,6 +36,9 @@ def fetch_coordinates(nationality)
     birth_date: Faker::Date.between(from: 80.years.ago, to: 20.years.ago),
     nationality: Faker::Address.country
   )
+
+  # Assign random genres
+  author.genres << genres.sample(rand(1..3))
 
   2.times do
     Book.create(
