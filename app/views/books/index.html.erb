@@ -1,10 +1,14 @@
-<h1>Books</h1>
-<ul>
-  <% @books.each do |book| %>
-    <li>
-      <%= link_to book.title, book_path(book) %>
-    </li>
-  <% end %>
-</ul>
-
-<%= paginate @books %>
+<% if @books.present? %>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+    <% @books.each do |book| %>
+      <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="p-4">
+          <h5 class="text-lg font-bold mb-2"><%= link_to book.title, book_path(book), class: 'text-blue-500 hover:underline' %></h5>
+          <p class="text-gray-600">Author: <%= book.author.name %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p class="text-center text-gray-600 mt-4">No books found.</p>
+<% end %>

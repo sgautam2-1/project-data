@@ -5,11 +5,7 @@
     <% @genres.each do |genre| %>
       <li>
         <h2><%= link_to "#{genre.name} (ID: #{genre.id})", genre_path(genre) %></h2>
-        <ul>
-          <% genre.books.each do |book| %>
-            <li><%= link_to book.title, book_path(book) %></li>
-          <% end %>
-        </ul>
+        
       </li>
     <% end %>
   <% else %>

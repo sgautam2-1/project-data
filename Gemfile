@@ -69,3 +69,6 @@ gem "faker", "~> 3.4"
 gem 'kaminari'
 gem 'httparty'
 gem 'geocoder'
+gem 'activeadmin'
+gem 'devise'
+gem 'image_processing', '~> 1.2'
